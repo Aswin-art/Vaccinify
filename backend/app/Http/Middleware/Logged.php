@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Society;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,9 +17,10 @@ class Logged
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = $request->user();
+        $token = $request->bearerToken();
+        $society = Society::where('login_token', $token)->first();
 
-        if($user){
+        if($society){
             return $next($request);
         }
 
