@@ -18,7 +18,7 @@ class AuthController extends Controller
         if(Auth::attempt($data)){
             $society = Society::with('regionals')->where('id_card_number', $request->id_card_number)->first();
             $token = md5($society->id_card_number);
-            $society->id_card_number = $token;
+            $society->login_tokens = $token;
             $society->save();
             return response()->json([
                 'data' => $society,

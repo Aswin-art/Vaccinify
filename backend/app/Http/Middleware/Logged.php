@@ -18,7 +18,7 @@ class Logged
     public function handle(Request $request, Closure $next)
     {
         $token = $request->bearerToken();
-        $society = Society::where('login_token', $token)->first();
+        $society = Society::where('login_tokens', $token)->first();
 
         if($society){
             return $next($request);

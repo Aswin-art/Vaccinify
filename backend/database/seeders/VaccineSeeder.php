@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Vaccine;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,12 @@ class VaccineSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $vaccines = ['Astrazeneca', 'Sinovac'];
+
+        foreach($vaccines as $vaccine){
+            Vaccine::create([
+                'name' => $vaccine
+            ]);
+        }
     }
 }

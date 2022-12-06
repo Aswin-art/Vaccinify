@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('born_date');
             $table->enum('gender', ['male', 'female']);
             $table->text('address');
-            $table->text('login_tokens');
+            $table->text('login_tokens')->nullable();
             $table->unsignedBigInteger('regional_id');
 
             $table->foreign('regional_id')->references('id')->on('regionals')->cascadeOnDelete()->cascadeOnUpdate();
