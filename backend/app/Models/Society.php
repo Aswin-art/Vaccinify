@@ -11,6 +11,8 @@ class Society extends Model
 
     protected $guarded = [];
 
+    protected $hidden = ['created_at', 'updated_at', 'password', 'login_tokens', 'id', 'id_card_number', 'regional_id'];
+
     public function regionals()
     {
         return $this->belongsTo(Regional::class, 'regional_id', 'id');

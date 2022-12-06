@@ -24,6 +24,8 @@ class Logged
             return $next($request);
         }
 
-        return abort(401, 'Unauthorized');
+        return response()->json([
+            'message' => 'Invalid Token'
+        ], 401);
     }
 }
