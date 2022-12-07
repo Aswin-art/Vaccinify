@@ -11,6 +11,8 @@ class Regional extends Model
 
     protected $guarded = [];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function societies()
     {
         return $this->hasMany(Society::class);

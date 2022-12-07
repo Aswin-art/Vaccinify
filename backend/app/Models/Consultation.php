@@ -11,6 +11,8 @@ class Consultation extends Model
 
     protected $guarded = [];
 
+    protected $hidden = ['created_at', 'updated_at', 'society_id', 'doctor_id'];
+
     public function societies()
     {
         return $this->belongsTo(Society::class, 'society_id', 'id');

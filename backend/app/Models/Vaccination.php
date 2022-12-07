@@ -11,6 +11,8 @@ class Vaccination extends Model
 
     protected $guarded = [];
 
+    protected $hidden = ['created_at', 'updated_at', 'id', 'society_id', 'doctor_id', 'officer_id', 'vaccine_id', 'date'];
+
     public function societies()
     {
         return $this->belongsTo(Society::class, 'society_id', 'id');

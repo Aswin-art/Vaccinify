@@ -11,6 +11,8 @@ class Medical extends Model
 
     protected $guarded = [];
 
+    protected $hidden = ['created_at', 'updated_at', 'spot_id', 'user_id'];
+
     public function spots()
     {
         return $this->belongsTo(Spot::class, 'spot_id', 'id');

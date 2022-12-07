@@ -11,6 +11,8 @@ class Vaccine extends Model
 
     protected $guarded = [];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function spot_vaccines()
     {
         return $this->hasMany(SpotVaccine::class);

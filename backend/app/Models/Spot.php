@@ -11,6 +11,8 @@ class Spot extends Model
 
     protected $guarded = [];
 
+    protected $hidden = ['created_at', 'updated_at', 'regional_id'];
+
     public function regionals()
     {
         return $this->belongsTo(Regional::class, 'regional_id', 'id');
