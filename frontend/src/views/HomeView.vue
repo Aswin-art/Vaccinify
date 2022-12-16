@@ -7,7 +7,7 @@
                 <h1 class="text-6xl text-primary font-bold">Fight Virus With Vaccine</h1>
                 <p class="text-lg text-gray-400 max-w-lg mt-6">Let's stop this pandemic by killing the virus with a vaccine. Don't let yourself and your family get infected.</p>
                 <div class="mt-6">
-                    <button class="bg-primary shadow-lg shadow-indigo-500/50 font-semibold text-white rounded px-4 py-2 hover:bg-transparent hover:bg-indigo-500">Get vaccine</button>
+                    <button class="bg-primary shadow-lg shadow-indigo-500/50 font-semibold text-white rounded px-4 py-2 hover:bg-indigo-500">Get vaccine</button>
                 </div>
             </div>
             <div class="image-content w-1/2 h-full">
