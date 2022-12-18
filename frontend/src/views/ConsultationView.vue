@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="consultation-list mt-5 flex gap-5">
-                    <div class="card border border-solid border-gray-300 p-3 w-[300px]">
+                    <div v-for="consultation in consultations" :key="consultation.id" class="card border border-solid border-gray-300 p-3 w-[300px]">
                         <div class="heading">
                             <h1 class="font-bold text-lg text-gray-700">Consultation</h1>
                         </div>
@@ -26,8 +26,14 @@
                                     <p class="font-bold text-lg">Status</p>
                                 </div>
                                 <div class="detail mt-1">
-                                    <div class="bg-primary rounded p-1">
-                                        <p class="text-white font-bold text-xs">Accepted</p>
+                                    <div v-if="consultation.status == 'accepted'" class="bg-primary rounded p-1">
+                                        <p class="text-white font-bold text-xs">{{ consultation.status }}</p>
+                                    </div>
+                                    <div v-if="consultation.status == 'pending'" class="bg-yellow-500 rounded p-1">
+                                        <p class="text-white font-bold text-xs">{{ consultation.status }}</p>
+                                    </div>
+                                    <div v-if="consultation.status == 'declined'" class="bg-red-500 rounded p-1">
+                                        <p class="text-white font-bold text-xs">{{ consultation.status }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +42,7 @@
                                     <p class="font-bold text-lg">Disease History</p>
                                 </div>
                                 <div class="detail mt-1">
-                                    <p class="text-gray-500">diabetes</p>
+                                    <p class="text-gray-500">{{ consultation.disease_history }}</p>
                                 </div>
                             </div>
                             <div class="status flex justify-between w-full mb-3">
@@ -44,7 +50,7 @@
                                     <p class="font-bold text-lg">Current Symptoms</p>
                                 </div>
                                 <div class="detail mt-1">
-                                    <p class="text-gray-500">flu</p>
+                                    <p class="text-gray-500">{{ consultation.current_symptoms }}</p>
                                 </div>
                             </div>
                             <div class="status flex justify-between w-full mb-3">
@@ -52,7 +58,8 @@
                                     <p class="font-bold text-lg">Doctor Name</p>
                                 </div>
                                 <div class="detail mt-1">
-                                    <p class="text-gray-500">Dr. Ratna Permatasari</p>
+                                    <p v-if="consultation.doctors" class="text-gray-500">{{ consultation.doctors.name }}</p>
+                                    <p v-else class="text-gray-500">-</p>
                                 </div>
                             </div>
                             <div class="status flex justify-between w-full mb-3">
@@ -60,7 +67,8 @@
                                     <p class="font-bold text-lg">Doctor Notes</p>
                                 </div>
                                 <div class="detail mt-1">
-                                    <p class="text-gray-500">Oke</p>
+                                    <p v-if="consultation.doctors" class="text-gray-500">{{ consultation.doctor_notes }}</p>
+                                    <p v-else class="text-gray-500">-</p>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +76,10 @@
                 </div>
 
                 <div class="add-consultations mt-5 mb-5">
-                    <div>
-                        <button class="bg-primary text-white px-4 py-2 font-semibold rounded shadow-sm shadow-indigo-500/50 hover:bg-indigo-500">Add Consultation</button>
+                    <div  v-if="consultationCount < 2">
+                        <a href="/request-consultation">
+                            <button class="bg-primary text-white px-4 py-2 font-semibold rounded shadow-sm shadow-indigo-500/50 hover:bg-indigo-500">Add Consultation</button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -78,7 +88,26 @@
 </template>
 
 <script setup>
+import { ref } from '@vue/reactivity';
+import { onMounted } from '@vue/runtime-core';
 import NavbarComponentVue from '../components/NavbarComponent.vue';
+import ApiServices from '../services/api/ApiServices';
+
+const consultations = ref('')
+
+let consultationCount = 0
+
+const getConsultations = async () => {
+    const res = await ApiServices.getConsultation()
+    if(res.status == 200){
+        consultations.value = res.data.data
+        consultationCount = consultations.value.length
+    }
+}
+
+onMounted(() => {
+    getConsultations()
+})
 </script>
 
 <style lang="scss" scoped>

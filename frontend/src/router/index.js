@@ -18,12 +18,18 @@ const router = createRouter({
     {
       path: '/consultations',
       name: 'consultations',
-      component: ConsultationView
+      component: ConsultationView,
+      meta: {
+        auth: true
+      }
     },
     {
       path: '/request-consultation',
       name: 'request-consultation',
-      component: RequestConsultationView
+      component: RequestConsultationView,
+      meta: {
+        auth: true
+      }
     },
     {
       path: '/login',
@@ -33,17 +39,26 @@ const router = createRouter({
     {
       path: '/hospitals',
       name: 'hospitals',
-      component: HospitalView
+      component: HospitalView,
+      meta: {
+        auth: true
+      }
     },
     {
       path: '/hospitals/:id',
       name: 'detail-hospital',
-      component: DetailHospitalView
+      component: DetailHospitalView,
+      meta: {
+        auth: true
+      }
     },
     {
       path: '/vaccines',
       name: 'vaccines',
-      component: VaccineListView
+      component: VaccineListView,
+      meta: {
+        auth: true
+      }
     },
   ]
 })
