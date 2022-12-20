@@ -8,22 +8,21 @@
         <div
           class="text flex-1 flex justify-center align-middle flex-col gap-5"
         >
-          <h1 class="heading text-5xl text-white font-bold">RSUD Anggrek</h1>
+          <h1 class="heading text-5xl text-white font-bold">{{ hospital.spot.name }}</h1>
           <div class="vaccine_list text-gray-500 text-xs">
-            <span class="rounded bg-white p-1">Sinovac</span>
-            <span class="rounded bg-white p-1">AstraZeneca</span>
-            <span class="rounded bg-white p-1">Pfizer</span>
-            <span class="rounded bg-white p-1">Moderna</span>
+            <span class="rounded bg-white p-1">{{ hospital.spot.vaccine.name }}</span>
           </div>
           <div class="adress text-white">
-            Jln. Anggrek No.15, Masangan Kulon, Sidoarjo, Jawa Timur, Indonesia
+            {{ hospital.spot.address }}
           </div>
           <div class="btn">
-            <button
-              class="bg-white text-md shadow-lg font-semibold text-primary rounded px-4 py-2 hover:shadow-2xl"
-            >
-              Register Vaccination
-            </button>
+            <a href="#register">
+              <button
+                class="bg-white text-md shadow-lg font-semibold text-primary rounded px-4 py-2 hover:shadow-2xl"
+              >
+                Register Vaccination
+              </button>
+            </a>
           </div>
         </div>
 
@@ -37,7 +36,7 @@
       </div>
     </main>
 
-    <div class="register_vaccine mt-10 container mx-auto p-6">
+    <div id="register" class="register_vaccine mt-10 container mx-auto p-6">
       <div class="select_date">
         <p>Select vaccination date</p>
         <input
@@ -48,13 +47,38 @@
         />
       </div>
 
-      <div class="session mt-5"></div>
+      <div class="session mt-5">
+
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from "@vue/reactivity";
+import { onBeforeMount, onMounted } from "@vue/runtime-core";
+import { useRoute } from "vue-router";
 import NavbarComponentVue from "../components/NavbarComponent.vue";
+import ApiServices from "../services/api/ApiServices";
+
+const hospital = ref('')
+
+const route = useRoute()
+
+const getHospitalInfo = async () => {
+  const res = await ApiServices.getDetailSpot(route.params.id)
+  if(res.status == 200){
+    hospital.value = res.data.data
+  }
+}
+
+onBeforeMount(() => {
+  getHospitalInfo()
+})
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+html, body{
+  scroll-behavior: smooth;
+}
+</style>

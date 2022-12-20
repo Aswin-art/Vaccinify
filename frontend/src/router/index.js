@@ -6,6 +6,7 @@ import HospitalView from '../views/HospitalView.vue'
 import LoginView from '../views/LoginView.vue'
 import RequestConsultationView from '../views/RequestConsultationView.vue'
 import VaccineListView from '../views/VaccineListView.vue'
+import ErrorView from '../views/404.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +60,11 @@ const router = createRouter({
       meta: {
         auth: true
       }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: '404',
+      component: ErrorView,
     },
   ]
 })
